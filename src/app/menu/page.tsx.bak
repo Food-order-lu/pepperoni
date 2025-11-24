@@ -1,0 +1,453 @@
+import styles from './page.module.css';
+
+export const metadata = {
+    title: 'Notre Menu | Restaurant PEPPERONI Diekirch',
+    description: 'Découvrez notre carte : pizzas artisanales, pâtes fraîches, cuisine française et portugaise. Restaurant Pepperoni à Diekirch.',
+};
+
+const menuData = {
+    entrees: [
+        { name: "Potage Stracciatella", price: "6.50€" },
+        { name: "Potage Tortellini in brodo", price: "7.00€" },
+        { name: "Potage Minestrone", price: "6.50€" },
+        { name: "Cocktail de Crevettes", price: "12.50€" },
+        { name: "Carpaccio all'italiana", price: "14.00€" },
+        { name: "Saumon fumé", price: "13.50€" },
+        { name: "Antipasto Italiano", price: "13.00€" },
+        { name: "Scampi à l'ail", price: "16.00€" },
+        { name: "Escargots de Bourgogne 6", price: "11.50€" },
+        { name: "Pain gratiné Pepperoni", price: "8.50€" }
+    ],
+    salades: [
+        { name: "Insalata Niçoise", price: "12.50€" },
+        { name: "Insalata Paysanne", price: "11.50€" },
+        { name: "Insalata Poulet", price: "13.00€" },
+        { name: "Insalata Scampi", price: "15.50€" }
+    ],
+    menuEnfant: [
+        { name: "Nuggets poulet", price: "9.50€" },
+        { name: "Beignes de poisson", price: "9.50€" }
+    ],
+    pizzas: [
+        { name: "Margherita", price: "10.00€" },
+        { name: "Pepperoni", price: "12.50€" },
+        { name: "Pepperoni Flame", price: "13.50€" },
+        { name: "Diekirch", price: "13.00€" },
+        { name: "Ai Funghi", price: "12.00€" },
+        { name: "A la truffe", price: "16.50€" },
+        { name: "Barbecue", price: "13.50€" },
+        { name: "Caprese", price: "12.50€" },
+        { name: "Calzone", price: "13.00€" },
+        { name: "Carpaccio", price: "14.50€" },
+        { name: "Capricciosa", price: "13.00€" },
+        { name: "Diavola", price: "12.50€" },
+        { name: "Frutti di mare", price: "15.00€" },
+        { name: "4 Formaggi", price: "12.50€" },
+        { name: "Hawaï", price: "12.00€" },
+        { name: "Mare e Monti", price: "14.50€" },
+        { name: "Napoletana", price: "11.50€" },
+        { name: "Parma", price: "14.50€" },
+        { name: "Prosciutto", price: "12.50€" },
+        { name: "Regina", price: "13.00€" },
+        { name: "Rusticana", price: "13.50€" },
+        { name: "Scampi", price: "15.50€" },
+        { name: "Salmone", price: "14.50€" },
+        { name: "Salami milano", price: "12.50€" },
+        { name: "4 Stagionni", price: "13.00€" },
+        { name: "Tonno", price: "12.50€" },
+        { name: "Vegetariana", price: " 11.50€" }
+    ],
+    burgers: [
+        { name: "BarBurger", price: "14.50€" },
+        { name: "PPBurger", price: "15.00€" },
+        { name: "FlaBurger", price: "15.50€" },
+        { name: "DiBurger", price: "14.50€" },
+        { name: "CalzoneBurger", price: "15.00€" }
+    ],
+    pates: [
+        { name: "Spaghetti Beurre", price: "9.50€" },
+        { name: "Spaghetti a l'ail", price: "10.00€" },
+        { name: "Spaghetti Bolognese", price: "12.50€" },
+        { name: "Spaghetti Pesto", price: "12.00€" },
+        { name: "Spaghetti Carbonara", price: "13.00€" },
+        { name: "Spaghetti Amatriciana", price: "13.00€" },
+        { name: "Spaghetti Jalapeno", price: "13.50€" },
+        { name: "Spaghetti fruits de mer", price: "16.50€" },
+        { name: "Penne au Saumon", price: "15.50€" },
+        { name: "Penne 4 Fromages", price: "13.00€" },
+        { name: "Penne Scampis Crevettes", price: "16.00€" },
+        { name: "Penne Arrabbiata", price: "12.50€" },
+        { name: "Orecchiette Barese", price: "13.50€" },
+        { name: "Orecchiette Pepperoni", price: "14.00€" },
+        { name: "Orecchiette Rucola", price: "13.50€" },
+        { name: "Tortellini Prosciutto", price: "14.00€" },
+        { name: "Tortellini Maison", price: "14.50€" },
+        { name: "Ravioli Saumon", price: "15.50€" },
+        { name: "Ravioli Ricotta e Spinaci", price: "13.50€" },
+        { name: "Ravioli Truffes", price: "17.00€" },
+        { name: "Cannelloni Viande", price: "13.50€" },
+        { name: "Cannelloni Ricotta e Spinaci", price: "13.00€" },
+        { name: "Trio de Pates", price: "16.00€" },
+        { name: "Lasagne", price: "14.00€" }
+    ],
+    poissons: [
+        { name: "Scampis Grillé", price: "24.50€" },
+        { name: "Scampis á l`ail", price: "24.50€" },
+        { name: "Gambas grillé", price: "26.00€" },
+        { name: "Gambas à la casserole", price: "26.50€" },
+        { name: "Gambas flambé au pastis", price: "27.00€" },
+        { name: "Friture Mediterranea", price: "19.50€" },
+        { name: "Saumon Grillé", price: "22.00€" },
+        { name: "Bacalhau à lagareiro", price: "23.50€" },
+        { name: "Bacalhau com Broa", price: "23.00€" },
+        { name: "Bacalhau à Brás", price: "22.50€" },
+        { name: "Grillade mixte de poissons", price: "28.00€" }
+    ],
+    risottos: [
+        { name: "Risotto Scampis Safran", price: "18.50€" },
+        { name: "Risotto Vegetariano", price: "14.50€" },
+        { name: "Risotto Fruits de Mer", price: "19.50€" }
+    ],
+    viandes: [
+        { name: "Côte a l`os grillé", price: "28.00€" },
+        { name: "Cordon bleu crème champignon", price: "19.50€" },
+        { name: "Entrecôte grillé", price: "26.00€" },
+        { name: "Escalope crème champignon", price: "18.50€" },
+        { name: "Escalope Milanesa", price: "18.50€" },
+        { name: "Filet de boeuf grillé", price: "32.00€" },
+        { name: "Magret de canard au marchand de vin", price: "24.50€" },
+        { name: "Tagliata filet de boeuf", price: "29.50€" },
+        { name: "Tagliata d'entrecôte boeuf", price: "27.00€" }
+    ],
+    desserts: [
+        { name: "Tiramisu", price: "7.50€" },
+        { name: "Crème brulée", price: "7.00€" },
+        { name: "Mousse au chocolat", price: "6.50€" },
+        { name: "Assiette de formages", price: "9.50€" }
+    ],
+    glaces: [
+        { name: "Profiteroles", price: "8.00€" },
+        { name: "Dame blanche", price: "7.50€" },
+        { name: "Café glace", price: "7.00€" },
+        { name: "Coupe framboise flambée", price: "8.50€" },
+        { name: "Coupe Williams", price: "8.50€" },
+        { name: "Coupe colonel", price: "8.00€" },
+        { name: "Boule de glace", price: "2.50€" }
+    ],
+    boissons: [
+        { name: "Sprite (33cl)", price: "3.00€" },
+        { name: "Coca-Cola (33cl)", price: "3.00€" },
+        { name: "Ice Tea (33cl)", price: "3.00€" }
+    ],
+    vinsPortugais: [
+        { name: "Mariano Tinto", price: "18.00€" },
+        { name: "Mariano Branco", price: "18.00€" },
+        { name: "Mariano Rosé", price: "18.00€" }
+    ],
+    vinsItalien: [
+        { name: "Paraluti Appassimento Rouge", price: "24.00€" },
+        { name: "Chadonnay la Torre Blanc", price: "22.00€" },
+        { name: "Idea Rosé", price: "20.00€" }
+    ],
+    vinsLuxembourgeois: [
+        { name: "Pinot Noir Rosé", price: "26.00€" },
+        { name: "Rivaner 1L", price: "22.00€" },
+        { name: "Coteaux Schengen Riesling", price: "28.00€" }
+    ]
+};
+
+export default function MenuPage() {
+    return (
+        <main className={styles.main}>
+            <section className={styles.hero}>
+                <div className={styles.overlay}></div>
+                <div className={styles.heroContent}>
+                    <h1>Notre Menu</h1>
+                    <p>Découvrez nos spécialités italiennes, françaises et portugaises</p>
+                </div>
+            </section>
+
+            <section className={styles.section}>
+                <div className={styles.container}>
+                    <div className={styles.menuIntro}>
+                        <h2>Une Carte Variée et Authentique</h2>
+                        <p>
+                            Notre menu propose une sélection raffinée de plats italiens, français et portugais,
+                            préparés avec des ingrédients frais et de qualité.
+                        </p>
+                    </div>
+
+                    {/* Entrées */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🥗</span>
+                            <h3>Entrées</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.entrees.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Salades */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🥬</span>
+                            <h3>Insalata (Salades)</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.salades.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Menu Enfant */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>👶</span>
+                            <h3>Menu Enfant</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.menuEnfant.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Pizzas */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍕</span>
+                            <h3>Pizzas Artisanales</h3>
+                        </div>
+                        <p className={styles.categoryNote}>
+                            Toutes nos pizzas sont préparées avec des ingrédients frais et une pâte maison.
+                        </p>
+                        <div className={styles.menuGrid}>
+                            {menuData.pizzas.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Burgers */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍔</span>
+                            <h3>Burgers</h3>
+                        </div>
+                        <p className={styles.categoryNote}>
+                            Tous les Burgers sont de boeuf et accompagnés de frites
+                        </p>
+                        <div className={styles.menuGrid}>
+                            {menuData.burgers.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Pâtes */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍝</span>
+                            <h3>Pâtes Fraîches</h3>
+                        </div>
+                        <p className={styles.categoryNote}>
+                            Nos pâtes fraîches sont préparées quotidiennement et accompagnées de sauces maison.
+                        </p>
+                        <div className={styles.menuGrid}>
+                            {menuData.pates.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Poissons */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🐟</span>
+                            <h3>Poissons</h3>
+                        </div>
+                        <p className={styles.categoryNote}>
+                            Accompagnés de légumes, riz et salade
+                        </p>
+                        <div className={styles.menuGrid}>
+                            {menuData.poissons.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Risottos */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍚</span>
+                            <h3>Risottos</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.risottos.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Viandes */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🥩</span>
+                            <h3>Viandes</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.viandes.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Desserts */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍰</span>
+                            <h3>Desserts</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.desserts.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Glaces */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🍨</span>
+                            <h3>Glaces</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.glaces.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Boissons */}
+                    <div className={styles.menuCategory}>
+                        <div className={styles.categoryHeader}>
+                            <span className={styles.categoryIcon}>🥤</span>
+                            <h3>Boissons</h3>
+                        </div>
+                        <div className={styles.menuGrid}>
+                            {menuData.boissons.map((item, index) => (
+                                <div key={index} className={styles.menuItem}>
+                                    <span className={styles.itemBullet}>•</span>
+                                    <span className={styles.itemName}>{item.name}</span>
+                                    <span className={styles.itemPrice}>{item.price}</span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Vins */}
+                    <div className={styles.wineSection}>
+                        <h2 className={styles.wineSectionTitle}>🍷 Notre Carte des Vins</h2>
+
+                        <div className={styles.wineGrid}>
+                            <div className={styles.wineCategory}>
+                                <h4>Vins Portugais</h4>
+                                <ul>
+                                    {menuData.vinsPortugais.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className={styles.wineCategory}>
+                                <h4>Vins Italien</h4>
+                                <ul>
+                                    {menuData.vinsItalien.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <div className={styles.wineCategory}>
+                                <h4>Vins Luxembourgeois</h4>
+                                <ul>
+                                    {menuData.vinsLuxembourgeois.map((item, index) => (
+                                        <li key={index}>{item}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Call to Action */}
+                    <div className={styles.cta}>
+                        <div className={styles.ctaBox}>
+                            <h3>📋 Allergies & Intolérances</h3>
+                            <p>
+                                Si vous avez des allergies ou des intolérances alimentaires,
+                                veuillez en informer notre personnel qui se fera un plaisir de vous conseiller.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div className={styles.ctaButtons}>
+                        <a href="tel:+35226800414" className={styles.btnPrimary}>
+                            Commander par Téléphone
+                        </a>
+                        <a href="/#contact" className={styles.btnOutline}>
+                            Réserver une Table
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    );
+}

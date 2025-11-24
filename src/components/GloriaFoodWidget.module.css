@@ -1,0 +1,29 @@
+.widgetContainer {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+/* Styles GloriaFood par défaut seront appliqués par leur script */
+/* On peut ajouter des overrides ici si nécessaire */
+
+.widgetContainer :global(.glf-button) {
+    /* Le widget GloriaFood appliquera ses propres styles */
+    /* Ces styles sont juste pour s'assurer que tout s'affiche bien */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .widgetContainer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .widgetContainer :global(.glf-button) {
+        width: 100%;
+        max-width: 300px;
+    }
+}

@@ -1,0 +1,210 @@
+.main {
+    min-height: 100vh;
+}
+
+.hero {
+    position: relative;
+    height: 50vh;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        linear-gradient(135deg, rgba(139, 21, 56, 0.85) 0%, rgba(74, 93, 63, 0.75) 100%),
+        url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1920&q=80') center/cover;
+    color: white;
+    margin-top: 80px;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg,
+            rgba(139, 21, 56, 0.6) 0%,
+            rgba(74, 93, 63, 0.5) 100%);
+}
+
+.heroContent {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.heroContent h1 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 800;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.heroContent p {
+    font-size: clamp(1.125rem, 2vw, 1.5rem);
+    color: var(--color-cream);
+}
+
+.section {
+    padding: 6rem 0;
+    background: var(--color-bg-light);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.menuIntro {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 3rem;
+}
+
+.menuIntro h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.menuIntro p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    line-height: 1.8;
+}
+
+.widgetSection {
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.infoSection {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.infoCard {
+    background: white;
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.infoCard:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.infoIcon {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+}
+
+.infoCard h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 0.75rem;
+}
+
+.infoCard p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.ctaSection {
+    margin: 3rem 0;
+}
+
+.ctaBox {
+    background: linear-gradient(135deg, var(--color-cream) 0%, var(--color-cream-dark) 100%);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    border-left: 5px solid var(--color-primary);
+}
+
+.ctaBox h3 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-bottom: 1.5rem;
+}
+
+.infoList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.infoList li {
+    font-size: 1.0625rem;
+    color: var(--color-text-secondary);
+    padding: 0.5rem 0;
+}
+
+.contactInfo {
+    text-align: center;
+    margin-top: 3rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.contactInfo p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.contactInfo strong {
+    color: var(--color-text-primary);
+}
+
+.phoneLink {
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.phoneLink:hover {
+    color: var(--color-primary-dark);
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .hero {
+        height: 40vh;
+        min-height: 300px;
+        margin-top: 70px;
+    }
+
+    .section {
+        padding: 4rem 0;
+    }
+
+    .infoSection {
+        grid-template-columns: 1fr;
+    }
+
+    .ctaBox {
+        padding: 2rem 1.5rem;
+    }
+
+    .infoList {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,349 @@
+.main {
+    min-height: 100vh;
+}
+
+.section {
+    padding: 6rem 0;
+    background: var(--color-bg-light);
+}
+
+.sectionDark {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, var(--color-bg-dark) 0%, #1a2028 100%);
+    color: white;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.textCenter {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.sectionTitle {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    color: var(--color-text-primary);
+    margin-bottom: 1rem;
+}
+
+.sectionTitleLight {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    font-weight: 800;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.sectionSubtitle {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    color: var(--color-text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.sectionSubtitleLight {
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.aboutContent {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.aboutText p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.aboutText strong {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+/* Commander en Ligne Section */
+.orderSection {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--color-cream) 0%, #f8f5ee 100%);
+    border-top: 3px solid var(--color-accent);
+    border-bottom: 3px solid var(--color-accent);
+}
+
+.orderContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+    text-align: center;
+}
+
+.orderTextBox h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.orderTextBox p {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    line-height: 1.7;
+}
+
+.specialtiesGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+}
+
+.specialtyCard {
+    background: white;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    transition: all 0.4s ease;
+}
+
+.specialtyCard:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+}
+
+.specialtyImage {
+    width: 100%;
+    height: 250px;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.specialtyCard:hover .specialtyImage {
+    transform: scale(1.1);
+}
+
+.specialtyContent {
+    padding: 2rem;
+}
+
+.specialtyContent h3 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+}
+
+.specialtyContent p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.contactGrid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.contactInfo {
+    color: white;
+}
+
+.contactText {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+}
+
+.contactDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.contactItem {
+    display: flex;
+    gap: 1.5rem;
+    align-items: flex-start;
+}
+
+.contactIcon {
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(232, 184, 109, 0.2);
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.contactItem h4 {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+}
+
+.contactItem a,
+.contactItem p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+}
+
+.contactItem a:hover {
+    color: var(--color-accent);
+}
+
+.cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.btnPrimary,
+.btnOutline {
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 0.75rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.btnPrimary {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-dark) 100%);
+    color: var(--color-text-primary);
+    box-shadow: 0 4px 16px rgba(232, 184, 109, 0.3);
+}
+
+.btnPrimary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(232, 184, 109, 0.4);
+}
+
+.btnOutline {
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btnOutline:hover {
+    background: white;
+    color: var(--color-primary);
+    transform: translateY(-2px);
+}
+
+.hoursCard {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.hoursCard h3 {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    color: var(--color-accent);
+    margin-bottom: 2rem;
+}
+
+.hoursList {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.hourItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hourItem:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.day {
+    font-weight: 600;
+    color: white;
+    font-size: 1rem;
+}
+
+.time {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+    text-align: right;
+}
+
+@media (max-width: 968px) {
+    .contactGrid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .specialtiesGrid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .section,
+    .sectionDark {
+        padding: 4rem 0;
+    }
+
+    .textCenter {
+        margin-bottom: 3rem;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta {
+        flex-direction: column;
+    }
+
+    .btnPrimary,
+    .btnOutline {
+        width: 100%;
+    }
+
+    .hoursCard {
+        padding: 2rem 1.5rem;
+    }
+}

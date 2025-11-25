@@ -77,6 +77,88 @@
     gap: var(--spacing-lg);
 }
 
+/* Menu du Jour Section */
+.menuDuJourSection {
+    padding: 3rem 0;
+    background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);
+    border-top: 4px solid var(--color-primary);
+}
+
+.menuDuJourContent {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.menuDuJourHeader {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.menuDuJourHeader h2 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 2.75rem);
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.menuDuJourSubtitle {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    font-weight: 500;
+}
+
+.menuDuJourViewer {
+    background: white;
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.pdfFrame {
+    width: 100%;
+    height: 600px;
+    border: 2px solid var(--color-cream);
+    border-radius: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.menuDuJourActions {
+    text-align: center;
+}
+
+.btnDownload {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(139, 21, 56, 0.3);
+}
+
+.btnDownload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(139, 21, 56, 0.4);
+}
+
+@media (max-width: 768px) {
+    .menuDuJourSection {
+        padding: 2rem 0;
+    }
+
+    .pdfFrame {
+        height: 400px;
+    }
+
+    .btnDownload {
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
 /* Commander en Ligne Section */
 .orderSection {
     padding: 4rem 0;

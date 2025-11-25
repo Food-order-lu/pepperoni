@@ -26,6 +26,37 @@ export default function Home() {
         <main className={styles.main}>
             <Hero />
 
+            {/* Menu du Jour Section */}
+            <section className={styles.menuDuJourSection}>
+                <div className={styles.container}>
+                    <div className={styles.menuDuJourContent}>
+                        <div className={styles.menuDuJourHeader}>
+                            <h2>🍽️ Menu du Jour</h2>
+                            <p className={styles.menuDuJourSubtitle}>Mis à jour chaque semaine</p>
+                        </div>
+
+                        <div className={styles.menuDuJourViewer}>
+                            {/* Remplacez le lien ci-dessous par votre lien Dropbox */}
+                            <iframe
+                                src="https://www.dropbox.com/s/VOTRE_LIEN_ICI/menu-du-jour.pdf?dl=1"
+                                className={styles.pdfFrame}
+                                title="Menu du Jour"
+                            />
+                            <div className={styles.menuDuJourActions}>
+                                <a
+                                    href="https://www.dropbox.com/s/VOTRE_LIEN_ICI/menu-du-jour.pdf?dl=1"
+                                    className={styles.btnDownload}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    📥 Télécharger le Menu
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* About Section */}
             <section className={styles.section} id="about">
                 <div className={styles.container}>

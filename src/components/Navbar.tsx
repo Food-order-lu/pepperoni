@@ -14,7 +14,7 @@ export default function Navbar() {
         };
 
         window.addEventListener('scroll', handleScroll);
-        
+
         // Charger le script GloriaFood
         const script = document.createElement('script');
         script.src = 'https://www.fbgcdn.com/embedder/js/ewm2.js';
@@ -45,7 +45,7 @@ export default function Navbar() {
                     <Link href="/menu" className={styles.navLink}>
                         Menu
                     </Link>
-                    <Link href="#contact" className={styles.navLink}>
+                    <Link href="/contact" className={styles.navLink}>
                         Contact
                     </Link>
                 </div>

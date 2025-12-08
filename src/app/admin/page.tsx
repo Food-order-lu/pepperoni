@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { saveMenuUrl, getMenuUrl } from '@/lib/firebase';
 import styles from './page.module.css';
 
 // Configuration Cloudinary
@@ -15,6 +16,7 @@ export default function AdminPage() {
     const [menuImageUrl, setMenuImageUrl] = useState('');
     const [isUploading, setIsUploading] = useState(false);
     const [uploadSuccess, setUploadSuccess] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         // Vérifier si déjà connecté
@@ -22,11 +24,16 @@ export default function AdminPage() {
         if (auth === 'true') {
             setIsAuthenticated(true);
         }
-        // Charger l'URL de l'image actuelle
-        const savedUrl = localStorage.getItem('pepperoni_menu_url');
-        if (savedUrl) {
-            setMenuImageUrl(savedUrl);
-        }
+
+        // Charger l'URL de l'image depuis Firebase
+        const loadMenuUrl = async () => {
+            const url = await getMenuUrl();
+            if (url) {
+                setMenuImageUrl(url);
+            }
+            setIsLoading(false);
+        };
+        loadMenuUrl();
     }, []);
 
     const handleLogin = (e: React.FormEvent) => {
@@ -51,12 +58,14 @@ export default function AdminPage() {
 
         setIsUploading(true);
         setUploadSuccess(false);
+        setError('');
 
         const formData = new FormData();
         formData.append('file', file);
         formData.append('upload_preset', UPLOAD_PRESET);
 
         try {
+            // Upload vers Cloudinary
             const response = await fetch(
                 `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
                 {
@@ -68,9 +77,14 @@ export default function AdminPage() {
             const data = await response.json();
 
             if (data.secure_url) {
-                setMenuImageUrl(data.secure_url);
-                localStorage.setItem('pepperoni_menu_url', data.secure_url);
-                setUploadSuccess(true);
+                // Sauvegarder dans Firebase
+                const saved = await saveMenuUrl(data.secure_url);
+                if (saved) {
+                    setMenuImageUrl(data.secure_url);
+                    setUploadSuccess(true);
+                } else {
+                    setError('Image uploadée mais erreur lors de la sauvegarde. Réessayez.');
+                }
             } else {
                 setError('Erreur lors de l\'upload. Vérifiez la configuration Cloudinary.');
             }
@@ -121,6 +135,7 @@ export default function AdminPage() {
                 <div className={styles.uploadSection}>
                     <h2>📋 Menu de la Semaine</h2>
                     <p>Uploadez une nouvelle image pour mettre à jour le menu affiché sur le site.</p>
+                    <p className={styles.infoText}>✨ L'image sera visible par tous les visiteurs du site !</p>
 
                     <label className={styles.uploadLabel}>
                         <input
@@ -128,22 +143,31 @@ export default function AdminPage() {
                             accept="image/*"
                             onChange={handleUpload}
                             className={styles.fileInput}
+                            disabled={isUploading}
                         />
                         <span className={styles.uploadBtn}>
                             {isUploading ? '⏳ Upload en cours...' : '📤 Choisir une image'}
                         </span>
                     </label>
 
+                    {error && (
+                        <div className={styles.errorBox}>
+                            ❌ {error}
+                        </div>
+                    )}
+
                     {uploadSuccess && (
                         <div className={styles.success}>
-                            ✅ Image mise à jour avec succès !
+                            ✅ Image mise à jour avec succès ! Tous les visiteurs peuvent maintenant la voir.
                         </div>
                     )}
                 </div>
 
                 <div className={styles.previewSection}>
                     <h3>Aperçu actuel</h3>
-                    {menuImageUrl ? (
+                    {isLoading ? (
+                        <div className={styles.noImage}>Chargement...</div>
+                    ) : menuImageUrl ? (
                         <img
                             src={menuImageUrl}
                             alt="Menu de la semaine"

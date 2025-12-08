@@ -1,17 +1,28 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { getMenuUrl } from '@/lib/firebase';
 import styles from '../app/page.module.css';
 
 export default function MenuSection() {
     const [menuImageUrl, setMenuImageUrl] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // Charger l'URL de l'image depuis localStorage
-        const savedUrl = localStorage.getItem('pepperoni_menu_url');
-        if (savedUrl) {
-            setMenuImageUrl(savedUrl);
-        }
+        // Charger l'URL de l'image depuis Firebase
+        const loadMenuUrl = async () => {
+            try {
+                const url = await getMenuUrl();
+                if (url) {
+                    setMenuImageUrl(url);
+                }
+            } catch (error) {
+                console.error('Erreur chargement menu:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+        loadMenuUrl();
     }, []);
 
     return (
@@ -24,7 +35,11 @@ export default function MenuSection() {
                     </div>
 
                     <div className={styles.menuDuJourViewer}>
-                        {menuImageUrl ? (
+                        {isLoading ? (
+                            <div className={styles.menuPlaceholder}>
+                                <p>⏳ Chargement du menu...</p>
+                            </div>
+                        ) : menuImageUrl ? (
                             <img
                                 src={menuImageUrl}
                                 alt="Menu de la Semaine - Restaurant Pepperoni"

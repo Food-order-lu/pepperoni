@@ -6,7 +6,11 @@ export default function Footer() {
             <div className={styles.container}>
                 <div className={styles.grid}>
                     <div className={styles.section}>
-                        <h3 className={styles.logo}>PEPPERONI</h3>
+                        <img
+                            src="/pepperoni/logo.png"
+                            alt="Pepperoni Restaurant & Pizzeria"
+                            className={styles.logoImage}
+                        />
                         <p className={styles.tagline}>
                             Restaurant & Pizzeria à Diekirch
                         </p>

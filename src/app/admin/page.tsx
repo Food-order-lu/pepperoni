@@ -99,12 +99,12 @@ export default function AdminPage() {
             if (data.secure_url) {
                 setUploadStatus('Sauvegarde...');
                 // 3. Sauvegarder dans Firebase
-                const saved = await saveMenuUrl(data.secure_url);
-                if (saved) {
+                const result = await saveMenuUrl(data.secure_url);
+                if (result.success) {
                     setMenuImageUrl(data.secure_url);
                     setUploadSuccess(true);
                 } else {
-                    setError('Image uploadée mais erreur lors de la sauvegarde. Réessayez.');
+                    setError(`Erreur sauvegarde Firebase: ${result.error}`);
                 }
             } else {
                 setError('Erreur lors de l\'upload. Vérifiez la configuration Cloudinary.');

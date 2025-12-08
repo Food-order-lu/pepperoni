@@ -15,16 +15,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Sauvegarder l'URL du menu dans Firestore
-export async function saveMenuUrl(url: string): Promise<boolean> {
+export async function saveMenuUrl(url: string): Promise<{ success: boolean; error?: string }> {
     try {
         await setDoc(doc(db, 'settings', 'menu'), {
             imageUrl: url,
             updatedAt: new Date().toISOString()
         });
-        return true;
-    } catch (error) {
+        return { success: true };
+    } catch (error: any) {
         console.error('Erreur lors de la sauvegarde:', error);
-        return false;
+        return { success: false, error: error.message || 'Erreur inconnue' };
     }
 }
 

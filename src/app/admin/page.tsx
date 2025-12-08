@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { saveMenuUrl, getMenuUrl } from '@/lib/firebase';
+import { resizeImage } from '@/lib/image';
 import styles from './page.module.css';
 
 // Configuration Cloudinary
@@ -15,6 +16,7 @@ export default function AdminPage() {
     const [error, setError] = useState('');
     const [menuImageUrl, setMenuImageUrl] = useState('');
     const [isUploading, setIsUploading] = useState(false);
+    const [uploadStatus, setUploadStatus] = useState('');
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -72,13 +74,18 @@ export default function AdminPage() {
         setIsUploading(true);
         setUploadSuccess(false);
         setError('');
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', UPLOAD_PRESET);
+        setUploadStatus('Optimisation de l\'image...');
 
         try {
-            // Upload vers Cloudinary
+            // 1. Compresser l'image
+            const compressedBlob = await resizeImage(file);
+
+            setUploadStatus('Upload en cours...');
+            const formData = new FormData();
+            formData.append('file', compressedBlob);
+            formData.append('upload_preset', UPLOAD_PRESET);
+
+            // 2. Upload vers Cloudinary
             const response = await fetch(
                 `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
                 {
@@ -90,7 +97,8 @@ export default function AdminPage() {
             const data = await response.json();
 
             if (data.secure_url) {
-                // Sauvegarder dans Firebase
+                setUploadStatus('Sauvegarde...');
+                // 3. Sauvegarder dans Firebase
                 const saved = await saveMenuUrl(data.secure_url);
                 if (saved) {
                     setMenuImageUrl(data.secure_url);
@@ -106,6 +114,7 @@ export default function AdminPage() {
             console.error(err);
         } finally {
             setIsUploading(false);
+            setUploadStatus('');
         }
     };
 
@@ -159,7 +168,7 @@ export default function AdminPage() {
                             disabled={isUploading}
                         />
                         <span className={styles.uploadBtn}>
-                            {isUploading ? '⏳ Upload en cours...' : '📤 Choisir une image'}
+                            {isUploading ? (uploadStatus || '⏳ Traitement...') : '📤 Choisir une image'}
                         </span>
                     </label>
 

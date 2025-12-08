@@ -1,4 +1,4 @@
-export const resizeImage = (file: File, maxWidth: number = 1200): Promise<Blob> => {
+export const resizeImage = (file: File, maxWidth: number = 800): Promise<Blob> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -35,7 +35,7 @@ export const resizeImage = (file: File, maxWidth: number = 1200): Promise<Blob> 
                         }
                     },
                     'image/jpeg',
-                    0.8 // Qualité 80%
+                    0.6 // Qualité 60% (suffisant pour un menu lisible et beaucoup plus léger)
                 );
             };
             img.onerror = (error) => reject(error);

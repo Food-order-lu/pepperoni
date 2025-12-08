@@ -1,0 +1,161 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import styles from './page.module.css';
+
+// Configuration Cloudinary
+const CLOUD_NAME = 'dsk1mj71x';
+const UPLOAD_PRESET = 'Menu de la semaine pepperoni';
+const ADMIN_PASSWORD = 'Pepperoni2022';
+
+export default function AdminPage() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
+    const [menuImageUrl, setMenuImageUrl] = useState('');
+    const [isUploading, setIsUploading] = useState(false);
+    const [uploadSuccess, setUploadSuccess] = useState(false);
+
+    useEffect(() => {
+        // Vérifier si déjà connecté
+        const auth = sessionStorage.getItem('pepperoni_admin');
+        if (auth === 'true') {
+            setIsAuthenticated(true);
+        }
+        // Charger l'URL de l'image actuelle
+        const savedUrl = localStorage.getItem('pepperoni_menu_url');
+        if (savedUrl) {
+            setMenuImageUrl(savedUrl);
+        }
+    }, []);
+
+    const handleLogin = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (password === ADMIN_PASSWORD) {
+            setIsAuthenticated(true);
+            sessionStorage.setItem('pepperoni_admin', 'true');
+            setError('');
+        } else {
+            setError('Mot de passe incorrect');
+        }
+    };
+
+    const handleLogout = () => {
+        setIsAuthenticated(false);
+        sessionStorage.removeItem('pepperoni_admin');
+    };
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+        setUploadSuccess(false);
+
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('upload_preset', UPLOAD_PRESET);
+
+        try {
+            const response = await fetch(
+                `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData,
+                }
+            );
+
+            const data = await response.json();
+
+            if (data.secure_url) {
+                setMenuImageUrl(data.secure_url);
+                localStorage.setItem('pepperoni_menu_url', data.secure_url);
+                setUploadSuccess(true);
+            } else {
+                setError('Erreur lors de l\'upload. Vérifiez la configuration Cloudinary.');
+            }
+        } catch (err) {
+            setError('Erreur de connexion. Réessayez.');
+            console.error(err);
+        } finally {
+            setIsUploading(false);
+        }
+    };
+
+    if (!isAuthenticated) {
+        return (
+            <div className={styles.container}>
+                <div className={styles.loginCard}>
+                    <div className={styles.logo}>🍕</div>
+                    <h1>Administration Pepperoni</h1>
+                    <p>Connectez-vous pour gérer le menu de la semaine</p>
+
+                    <form onSubmit={handleLogin} className={styles.form}>
+                        <input
+                            type="password"
+                            placeholder="Mot de passe"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={styles.input}
+                        />
+                        {error && <p className={styles.error}>{error}</p>}
+                        <button type="submit" className={styles.button}>
+                            Se connecter
+                        </button>
+                    </form>
+                </div>
+            </div>
+        );
+    }
+
+    return (
+        <div className={styles.container}>
+            <div className={styles.adminPanel}>
+                <div className={styles.header}>
+                    <h1>🍕 Gestion du Menu</h1>
+                    <button onClick={handleLogout} className={styles.logoutBtn}>
+                        Déconnexion
+                    </button>
+                </div>
+
+                <div className={styles.uploadSection}>
+                    <h2>📋 Menu de la Semaine</h2>
+                    <p>Uploadez une nouvelle image pour mettre à jour le menu affiché sur le site.</p>
+
+                    <label className={styles.uploadLabel}>
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleUpload}
+                            className={styles.fileInput}
+                        />
+                        <span className={styles.uploadBtn}>
+                            {isUploading ? '⏳ Upload en cours...' : '📤 Choisir une image'}
+                        </span>
+                    </label>
+
+                    {uploadSuccess && (
+                        <div className={styles.success}>
+                            ✅ Image mise à jour avec succès !
+                        </div>
+                    )}
+                </div>
+
+                <div className={styles.previewSection}>
+                    <h3>Aperçu actuel</h3>
+                    {menuImageUrl ? (
+                        <img
+                            src={menuImageUrl}
+                            alt="Menu de la semaine"
+                            className={styles.previewImage}
+                        />
+                    ) : (
+                        <div className={styles.noImage}>
+                            Aucune image de menu uploadée
+                        </div>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+}

@@ -1,0 +1,5 @@
+/* Hide navbar and footer on admin page */
+:global(nav),
+:global(footer) {
+    display: none !important;
+}

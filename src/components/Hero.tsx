@@ -6,7 +6,10 @@ export default function Hero() {
     return (
         <section className={styles.hero}>
             <div className={styles.overlay}></div>
-            <div className={styles.background}></div>
+            <div
+                className={styles.background}
+                style={{ backgroundImage: "url('/pepperoni/hero-bg.jpg')" }}
+            ></div>
 
             <div className={styles.content}>
                 <div className={styles.textContent}>

@@ -34,8 +34,11 @@ export default function Navbar() {
         <nav className={`${styles.navbar} ${isScrolled ? styles.scrolled : ''}`}>
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
-                    <span className={styles.logoText}>PEPPERONI</span>
-                    <span className={styles.logoSubtext}>Restaurant & Pizzeria</span>
+                    <img
+                        src="/pepperoni/logo.png"
+                        alt="Pepperoni Restaurant & Pizzeria"
+                        className={styles.logoImage}
+                    />
                 </Link>
 
                 <div className={`${styles.navLinks} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>

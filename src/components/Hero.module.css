@@ -14,9 +14,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background:
-        linear-gradient(135deg, rgba(139, 21, 56, 0.3) 0%, rgba(74, 93, 63, 0.3) 100%),
-        url('https://images.unsplash.com/photo-1513104890138-7c749659a591?w=1920&q=80') center/cover;
+    background: url('/hero-bg.jpg') center/cover no-repeat;
     animation: zoomIn 20s ease infinite alternate;
 }
 
@@ -36,9 +34,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(135deg,
-            rgba(139, 21, 56, 0.75) 0%,
-            rgba(74, 93, 63, 0.65) 100%);
+    background: rgba(139, 21, 56, 0.55);
     z-index: 1;
 }
 

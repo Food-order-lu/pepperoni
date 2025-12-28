@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { saveMenuUrl, getMenuUrl } from '@/lib/firebase';
-import { resizeImage } from '@/lib/image';
+import { resizeImage, createLocalPreview } from '@/lib/image';
 import styles from './page.module.css';
 
 // Configuration Cloudinary
@@ -15,8 +15,9 @@ export default function AdminPage() {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [menuImageUrl, setMenuImageUrl] = useState('');
+    const [localPreviewUrl, setLocalPreviewUrl] = useState('');
     const [isUploading, setIsUploading] = useState(false);
-    const [uploadStatus, setUploadStatus] = useState('');
+    const [uploadProgress, setUploadProgress] = useState(0);
     const [uploadSuccess, setUploadSuccess] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -51,6 +52,15 @@ export default function AdminPage() {
         return () => window.removeEventListener('beforeunload', handleBeforeUnload);
     }, [isUploading]);
 
+    // Cleanup des URLs locales
+    useEffect(() => {
+        return () => {
+            if (localPreviewUrl) {
+                URL.revokeObjectURL(localPreviewUrl);
+            }
+        };
+    }, [localPreviewUrl]);
+
     const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === ADMIN_PASSWORD) {
@@ -71,21 +81,28 @@ export default function AdminPage() {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        setIsUploading(true);
+        // Reset states
         setUploadSuccess(false);
         setError('');
-        setUploadStatus('Optimisation de l\'image...');
+        setUploadProgress(0);
+
+        // 1. INSTANTANÉ: Afficher la prévisualisation locale immédiatement
+        const localUrl = createLocalPreview(file);
+        setLocalPreviewUrl(localUrl);
+        setIsUploading(true);
+        setUploadProgress(10);
 
         try {
-            // 1. Compresser l'image
+            // 2. Compresser l'image (très rapide avec les nouveaux paramètres)
+            setUploadProgress(20);
             const compressedBlob = await resizeImage(file);
+            setUploadProgress(40);
 
-            setUploadStatus('Upload en cours...');
+            // 3. Upload vers Cloudinary
             const formData = new FormData();
             formData.append('file', compressedBlob);
             formData.append('upload_preset', UPLOAD_PRESET);
 
-            // 2. Upload vers Cloudinary
             const response = await fetch(
                 `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
                 {
@@ -93,28 +110,31 @@ export default function AdminPage() {
                     body: formData,
                 }
             );
+            setUploadProgress(80);
 
             const data = await response.json();
 
             if (data.secure_url) {
-                setUploadStatus('Sauvegarde...');
-                // 3. Sauvegarder dans Firebase
+                // 4. Sauvegarder dans Firebase
                 const result = await saveMenuUrl(data.secure_url);
+                setUploadProgress(95);
+
                 if (result.success) {
                     setMenuImageUrl(data.secure_url);
+                    setLocalPreviewUrl(''); // Clear local preview, use cloud URL
                     setUploadSuccess(true);
+                    setUploadProgress(100);
                 } else {
-                    setError(`Erreur sauvegarde Firebase: ${result.error}`);
+                    setError(`Erreur sauvegarde: ${result.error}`);
                 }
             } else {
-                setError('Erreur lors de l\'upload. Vérifiez la configuration Cloudinary.');
+                setError('Erreur upload Cloudinary.');
             }
         } catch (err) {
             setError('Erreur de connexion. Réessayez.');
             console.error(err);
         } finally {
             setIsUploading(false);
-            setUploadStatus('');
         }
     };
 
@@ -156,6 +176,25 @@ export default function AdminPage() {
 
                 <div className={styles.uploadSection}>
                     <h2>📋 Menu de la Semaine</h2>
+
+                    <div className={styles.stepGuide}>
+                        <div className={styles.step}>
+                            <span className={styles.stepIcon}>📸</span>
+                            <span className={styles.stepTitle}>1. Photo</span>
+                            <span className={styles.stepDesc}>Prenez le menu en photo</span>
+                        </div>
+                        <div className={styles.step}>
+                            <span className={styles.stepIcon}>📤</span>
+                            <span className={styles.stepTitle}>2. Upload</span>
+                            <span className={styles.stepDesc}>Cliquez sur le bouton et choisissez la photo</span>
+                        </div>
+                        <div className={styles.step}>
+                            <span className={styles.stepIcon}>✨</span>
+                            <span className={styles.stepTitle}>3. C'est tout !</span>
+                            <span className={styles.stepDesc}>Le site se met à jour instantanément</span>
+                        </div>
+                    </div>
+
                     <p>Uploadez une nouvelle image pour mettre à jour le menu affiché sur le site.</p>
                     <p className={styles.infoText}>✨ L'image sera visible par tous les visiteurs du site !</p>
 
@@ -168,9 +207,18 @@ export default function AdminPage() {
                             disabled={isUploading}
                         />
                         <span className={styles.uploadBtn}>
-                            {isUploading ? (uploadStatus || '⏳ Traitement...') : '📤 Choisir une image'}
+                            {isUploading ? `⏳ ${uploadProgress}%` : '📤 Choisir une image'}
                         </span>
                     </label>
+
+                    {isUploading && (
+                        <div className={styles.progressContainer}>
+                            <div
+                                className={styles.progressBar}
+                                style={{ width: `${uploadProgress}%` }}
+                            />
+                        </div>
+                    )}
 
                     {error && (
                         <div className={styles.errorBox}>
@@ -180,14 +228,21 @@ export default function AdminPage() {
 
                     {uploadSuccess && (
                         <div className={styles.success}>
-                            ✅ Image mise à jour avec succès ! Tous les visiteurs peuvent maintenant la voir.
+                            ✅ Menu mis à jour instantanément !
                         </div>
                     )}
                 </div>
 
                 <div className={styles.previewSection}>
-                    <h3>Aperçu actuel</h3>
-                    {isLoading ? (
+                    <h3>{localPreviewUrl ? '📤 Nouveau menu (upload en cours...)' : 'Aperçu actuel'}</h3>
+                    {localPreviewUrl ? (
+                        <img
+                            src={localPreviewUrl}
+                            alt="Prévisualisation locale"
+                            className={styles.previewImage}
+                            style={{ opacity: 0.8 }}
+                        />
+                    ) : isLoading ? (
                         <div className={styles.noImage}>Chargement...</div>
                     ) : menuImageUrl ? (
                         <img

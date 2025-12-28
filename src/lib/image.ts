@@ -1,4 +1,4 @@
-export const resizeImage = (file: File, maxWidth: number = 800): Promise<Blob> => {
+export const resizeImage = (file: File, maxWidth: number = 600): Promise<Blob> => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -35,11 +35,16 @@ export const resizeImage = (file: File, maxWidth: number = 800): Promise<Blob> =
                         }
                     },
                     'image/jpeg',
-                    0.6 // Qualité 60% (suffisant pour un menu lisible et beaucoup plus léger)
+                    0.5 // Qualité 50% - ultra rapide pour upload instantané
                 );
             };
             img.onerror = (error) => reject(error);
         };
         reader.onerror = (error) => reject(error);
     });
+};
+
+// Créer une URL de prévisualisation locale (instantanée)
+export const createLocalPreview = (file: File): string => {
+    return URL.createObjectURL(file);
 };

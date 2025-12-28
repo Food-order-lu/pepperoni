@@ -156,13 +156,39 @@
     box-shadow: 0 8px 24px rgba(139, 21, 56, 0.4);
 }
 
-.success {
-    margin-top: 1rem;
+.stepGuide {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    gap: 1rem;
+}
+
+.step {
+    flex: 1;
+    background: #fff;
     padding: 1rem;
-    background: #d4edda;
-    border-radius: 0.5rem;
-    color: #155724;
-    font-weight: 600;
+    border-radius: 0.75rem;
+    text-align: center;
+    border: 1px solid #eee;
+    transition: all 0.3s ease;
+}
+
+.stepIcon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stepTitle {
+    font-weight: 700;
+    color: #1a1a2e;
+    margin-bottom: 0.25rem;
+    display: block;
+}
+
+.stepDesc {
+    font-size: 0.85rem;
+    color: #666;
 }
 
 .infoText {
@@ -178,6 +204,43 @@
     border-radius: 0.5rem;
     color: #721c24;
     font-weight: 600;
+}
+
+.success {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    border-radius: 0.5rem;
+    color: #155724;
+    font-weight: 600;
+    animation: successPop 0.3s ease-out;
+}
+
+@keyframes successPop {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.progressContainer {
+    margin-top: 1rem;
+    height: 8px;
+    background: #e9ecef;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progressBar {
+    height: 100%;
+    background: linear-gradient(135deg, #8B1538 0%, #6d1029 100%);
+    border-radius: 4px;
+    transition: width 0.3s ease-out;
 }
 
 .previewSection {

@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
-  basePath: '/pepperoni',
+  // Hostinger Node.js hosting - no static export needed
   images: {
     unoptimized: true,
   },
 };
 
 export default nextConfig;
+

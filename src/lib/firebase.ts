@@ -1,7 +1,7 @@
 // Storage solution: Server API (shared) + localStorage (fallback)
 // All visitors see the same menu!
 
-const API_URL = '/pepperoni/api/menu';
+const API_URL = '/api/menu';
 const STORAGE_KEY = 'pepperoni_menu_url';
 
 // Sauvegarder l'URL du menu (serveur + localStorage backup)

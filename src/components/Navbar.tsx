@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className={styles.container}>
                 <Link href="/" className={styles.logo}>
                     <img
-                        src="/pepperoni/logo.png"
+                        src="/logo.png"
                         alt="Pepperoni Restaurant & Pizzeria"
                         className={styles.logoImage}
                     />

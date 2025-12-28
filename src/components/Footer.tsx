@@ -7,7 +7,7 @@ export default function Footer() {
                 <div className={styles.grid}>
                     <div className={styles.section}>
                         <img
-                            src="/pepperoni/logo.png"
+                            src="/logo.png"
                             alt="Pepperoni Restaurant & Pizzeria"
                             className={styles.logoImage}
                         />

@@ -8,7 +8,7 @@ export default function Hero() {
             <div className={styles.overlay}></div>
             <div
                 className={styles.background}
-                style={{ backgroundImage: "url('/pepperoni/hero-bg.jpg')" }}
+                style={{ backgroundImage: "url('/hero-bg.jpg')" }}
             ></div>
 
             <div className={styles.content}>

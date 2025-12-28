@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Note: API routes require server mode (no static export)
-  // This works with Hostinger Node.js hosting
+  output: 'export',
   basePath: '/pepperoni',
   images: {
     unoptimized: true,

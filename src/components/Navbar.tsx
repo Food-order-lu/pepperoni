@@ -42,16 +42,16 @@ export default function Navbar() {
                 </Link>
 
                 <div className={`${styles.navLinks} ${isMobileMenuOpen ? styles.mobileMenuOpen : ''}`}>
-                    <Link href="/" className={styles.navLink}>
+                    <Link href="/" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
                         Accueil
                     </Link>
-                    <Link href="/menu" className={styles.navLink}>
+                    <Link href="/menu" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
                         Menu
                     </Link>
-                    <Link href="/galerie" className={styles.navLink}>
+                    <Link href="/galerie" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
                         Galerie
                     </Link>
-                    <Link href="/contact" className={styles.navLink}>
+                    <Link href="/contact" className={styles.navLink} onClick={() => setIsMobileMenuOpen(false)}>
                         Contact
                     </Link>
                 </div>

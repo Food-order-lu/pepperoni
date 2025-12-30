@@ -9,6 +9,9 @@ export default function GalleryPage() {
     const [images, setImages] = useState<GalleryImage[]>([]);
     const [loading, setLoading] = useState(true);
 
+    // Lightbox State
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
     useEffect(() => {
         const fetchImages = async () => {
             const data = await getGalleryImages();
@@ -53,21 +56,37 @@ export default function GalleryPage() {
             ) : (
                 <div className={styles.grid}>
                     {filteredItems.map((item) => (
-                        <div key={item.id} className={styles.card}>
+                        <div
+                            key={item.id}
+                            className={styles.card}
+                            onClick={() => setSelectedImage(item.url)}
+                        >
                             <img
                                 src={item.url}
                                 alt="Galerie Pepperoni"
                                 className={styles.image}
                             />
-                            {/* Overlay est optionnel si on n'a pas de titre/desc spécifique pour chaque image uploadée */}
                             <div className={styles.overlay}>
                                 <h3 className={styles.imageTitle}>Pepperoni</h3>
                                 <p className={styles.imageDesc}>
-                                    {activeTab === 'restaurant' ? 'Ambiance & Cuisine' : 'Événement & Fête'}
+                                    Agrandir 🔍
                                 </p>
                             </div>
                         </div>
                     ))}
+                </div>
+            )}
+
+            {/* LIGHTBOX MODAL */}
+            {selectedImage && (
+                <div className={styles.lightbox} onClick={() => setSelectedImage(null)}>
+                    <button className={styles.closeButton} onClick={() => setSelectedImage(null)}>&times;</button>
+                    <img
+                        src={selectedImage}
+                        alt="Agrandissement"
+                        className={styles.lightboxImage}
+                        onClick={(e) => e.stopPropagation()} // Permet de ne pas fermer si on clique sur l'image
+                    />
                 </div>
             )}
         </div>

@@ -65,7 +65,7 @@ export default function Footer() {
                         © 2024 Restaurant Pepperoni. Tous droits réservés.
                     </p>
                     <p className={styles.credit}>
-                        Site créé avec ❤️ pour Pepperoni
+                        Site créé avec ❤️ par WebVision
                     </p>
                 </div>
             </div>

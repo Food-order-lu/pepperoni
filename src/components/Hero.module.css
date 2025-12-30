@@ -65,6 +65,7 @@
 
 .title {
     font-family: var(--font-display);
+    color: var(--color-accent);
     font-size: clamp(3rem, 7vw, 6rem);
     font-weight: 800;
     line-height: 1.1;

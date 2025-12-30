@@ -48,6 +48,9 @@ export default function Navbar() {
                     <Link href="/menu" className={styles.navLink}>
                         Menu
                     </Link>
+                    <Link href="/galerie" className={styles.navLink}>
+                        Galerie
+                    </Link>
                     <Link href="/contact" className={styles.navLink}>
                         Contact
                     </Link>

@@ -28,13 +28,8 @@ export default function MenuSection() {
     return (
         <section className={styles.menuDuJourSection}>
             <div className={styles.container}>
-                <div className={styles.menuDuJourContent}>
-                    <div className={styles.menuDuJourHeader}>
-                        <h2>🍽️ Menu de la Semaine</h2>
-                        <p className={styles.menuDuJourSubtitle}>Mis à jour chaque semaine</p>
-                    </div>
-
-                    <div className={styles.menuDuJourViewer}>
+                <div className={styles.menuDuJourContent} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '2rem 0', background: 'transparent', boxShadow: 'none' }}>
+                    <div className={styles.menuDuJourViewer} style={{ width: '100%', maxWidth: '900px' }}>
                         {isLoading ? (
                             <div className={styles.menuPlaceholder}>
                                 <p>⏳ Chargement du menu...</p>
@@ -44,6 +39,13 @@ export default function MenuSection() {
                                 src={menuImageUrl}
                                 alt="Menu de la Semaine - Restaurant Pepperoni"
                                 className={styles.menuImage}
+                                style={{
+                                    width: '100%',
+                                    height: 'auto',
+                                    borderRadius: '1rem',
+                                    boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+                                    display: 'block'
+                                }}
                             />
                         ) : (
                             <div className={styles.menuPlaceholder}>

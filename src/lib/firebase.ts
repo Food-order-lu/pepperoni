@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, doc, setDoc, getDoc } from 'firebase/firestore';
+import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, getDocs, deleteDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
     apiKey: "AIzaSyBEb-VBRW3ymcVl9oLjOAxAuk1L2jNC7jU",
@@ -69,4 +69,54 @@ export async function getMenuUrl(): Promise<string | null> {
     }
 
     return null;
+}
+
+// Types pour la galerie
+export interface GalleryImage {
+    id: string;
+    url: string;
+    category: 'restaurant' | 'events';
+    createdAt: string;
+}
+
+// Ajouter une image à la galerie
+export async function addGalleryImage(url: string, category: 'restaurant' | 'events'): Promise<{ success: boolean; error?: string }> {
+    try {
+        const docRef = doc(collection(db, 'gallery'));
+        await setDoc(docRef, {
+            url,
+            category,
+            createdAt: new Date().toISOString()
+        });
+        return { success: true };
+    } catch (error: any) {
+        console.error('Erreur ajout galerie:', error);
+        return { success: false, error: error.message || 'Erreur inconnue' };
+    }
+}
+
+// Récupérer toutes les images de la galerie
+export async function getGalleryImages(): Promise<GalleryImage[]> {
+    try {
+        const q = query(collection(db, 'gallery'), orderBy('createdAt', 'desc'));
+        const querySnapshot = await getDocs(q);
+        return querySnapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        } as GalleryImage));
+    } catch (error) {
+        console.error('Erreur lecture galerie:', error);
+        return [];
+    }
+}
+
+// Supprimer une image de la galerie
+export async function deleteGalleryImage(id: string): Promise<{ success: boolean; error?: string }> {
+    try {
+        await deleteDoc(doc(db, 'gallery', id));
+        return { success: true };
+    } catch (error: any) {
+        console.error('Erreur suppression galerie:', error);
+        return { success: false, error: error.message || 'Erreur inconnue' };
+    }
 }

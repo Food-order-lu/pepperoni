@@ -1,60 +1,24 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { getGalleryImages, GalleryImage } from '@/lib/firebase';
 import styles from './page.module.css';
 
-// Données simulées pour la galerie (à remplacer par des vraies images plus tard)
-const galleryItems = [
-    // Restaurant
-    {
-        id: 1,
-        category: 'restaurant',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Salle Principale',
-        description: 'Ambiance chaleureuse et conviviale'
-    },
-    {
-        id: 2,
-        category: 'restaurant',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Notre Four à Pizza',
-        description: 'La cuisson authentique au feu de bois'
-    },
-    {
-        id: 3,
-        category: 'restaurant',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Terrasse Ensoleillée',
-        description: 'Profitez des beaux jours'
-    },
-    // Événements
-    {
-        id: 4,
-        category: 'events',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Soirée Privée',
-        description: 'Organisation de baptêmes et anniversaires'
-    },
-    {
-        id: 5,
-        category: 'events',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Grande Salle de Réception',
-        description: 'Espace modulable pour vos événements'
-    },
-    {
-        id: 6,
-        category: 'events',
-        src: '/hero-bg.jpg', // Placeholder
-        title: 'Buffet Traiteur',
-        description: 'Service traiteur sur mesure'
-    }
-];
-
 export default function GalleryPage() {
-    const [activeTab, setActiveTab] = useState('restaurant');
+    const [activeTab, setActiveTab] = useState<'restaurant' | 'events'>('restaurant');
+    const [images, setImages] = useState<GalleryImage[]>([]);
+    const [loading, setLoading] = useState(true);
 
-    const filteredItems = galleryItems.filter(item => item.category === activeTab);
+    useEffect(() => {
+        const fetchImages = async () => {
+            const data = await getGalleryImages();
+            setImages(data);
+            setLoading(false);
+        };
+        fetchImages();
+    }, []);
+
+    const filteredItems = images.filter(item => item.category === activeTab);
 
     return (
         <div className={styles.container}>
@@ -80,21 +44,32 @@ export default function GalleryPage() {
                 </button>
             </div>
 
-            <div className={styles.grid}>
-                {filteredItems.map((item) => (
-                    <div key={item.id} className={styles.card}>
-                        <img
-                            src={item.src}
-                            alt={item.title}
-                            className={styles.image}
-                        />
-                        <div className={styles.overlay}>
-                            <h3 className={styles.imageTitle}>{item.title}</h3>
-                            <p className={styles.imageDesc}>{item.description}</p>
+            {loading ? (
+                <div style={{ textAlign: 'center', padding: '4rem', color: '#666' }}>Chargement...</div>
+            ) : filteredItems.length === 0 ? (
+                <div style={{ textAlign: 'center', padding: '4rem', color: '#666', background: '#f9f9f9', borderRadius: '1rem' }}>
+                    Aucune photo dans cette catégorie pour le moment.
+                </div>
+            ) : (
+                <div className={styles.grid}>
+                    {filteredItems.map((item) => (
+                        <div key={item.id} className={styles.card}>
+                            <img
+                                src={item.url}
+                                alt="Galerie Pepperoni"
+                                className={styles.image}
+                            />
+                            {/* Overlay est optionnel si on n'a pas de titre/desc spécifique pour chaque image uploadée */}
+                            <div className={styles.overlay}>
+                                <h3 className={styles.imageTitle}>Pepperoni</h3>
+                                <p className={styles.imageDesc}>
+                                    {activeTab === 'restaurant' ? 'Ambiance & Cuisine' : 'Événement & Fête'}
+                                </p>
+                            </div>
                         </div>
-                    </div>
-                ))}
-            </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

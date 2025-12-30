@@ -370,30 +370,32 @@ export default function AdminPage() {
                             gap: '1rem',
                             marginTop: '1.5rem'
                         }}>
-                            {galleryImages.map((img) => (
-                                <div key={img.id} style={{ position: 'relative', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', background: '#fff' }}>
-                                    <img src={img.url} alt="Gallery" style={{ width: '100%', aspectRatio: '1', objectFit: 'cover' }} />
-                                    <div style={{ padding: '0.5rem', fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8f9fa' }}>
-                                        <span title={img.category}>
-                                            {img.category === 'restaurant' ? '🍽️' : '🎉'}
-                                        </span>
-                                        <button
-                                            onClick={() => handleDeleteGalleryImage(img.id)}
-                                            style={{
-                                                background: '#fee2e2',
-                                                color: '#dc2626',
-                                                border: 'none',
-                                                borderRadius: '4px',
-                                                padding: '4px 8px',
-                                                cursor: 'pointer',
-                                                fontSize: '0.8rem'
-                                            }}
-                                        >
-                                            Supr.
-                                        </button>
+                            {galleryImages
+                                .filter(img => img.category === galleryCategory)
+                                .map((img) => (
+                                    <div key={img.id} style={{ position: 'relative', borderRadius: '0.5rem', overflow: 'hidden', boxShadow: '0 2px 8px rgba(0,0,0,0.1)', background: '#fff' }}>
+                                        <img src={img.url} alt="Gallery" style={{ width: '100%', aspectRatio: '1', objectFit: 'cover' }} />
+                                        <div style={{ padding: '0.5rem', fontSize: '0.8rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#f8f9fa' }}>
+                                            <span title={img.category}>
+                                                {img.category === 'restaurant' ? '🍽️' : '🎉'}
+                                            </span>
+                                            <button
+                                                onClick={() => handleDeleteGalleryImage(img.id)}
+                                                style={{
+                                                    background: '#fee2e2',
+                                                    color: '#dc2626',
+                                                    border: 'none',
+                                                    borderRadius: '4px',
+                                                    padding: '4px 8px',
+                                                    cursor: 'pointer',
+                                                    fontSize: '0.8rem'
+                                                }}
+                                            >
+                                                Supr.
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                         </div>
                     </div>
                 )}

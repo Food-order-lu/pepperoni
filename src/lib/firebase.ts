@@ -2,13 +2,13 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, doc, setDoc, getDoc, collection, query, orderBy, getDocs, deleteDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyDjFl9aA4B8dtMmhBCfzp7L1VgWaUYOa7U",
-    authDomain: "pepperoni-menu.firebaseapp.com",
-    projectId: "pepperoni-menu",
-    storageBucket: "pepperoni-menu.firebasestorage.app",
-    messagingSenderId: "99813985360",
-    appId: "1:99813985360:web:1d226c62a52c49f51a5555",
-    measurementId: "G-R7FVEX4T7E"
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+    authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+    storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID
 };
 
 const app = initializeApp(firebaseConfig);

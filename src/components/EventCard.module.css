@@ -1,0 +1,59 @@
+.card {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: transform var(--transition-medium);
+    height: 100%;
+    background: white;
+    box-shadow: var(--shadow-md);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.imageContainer {
+    position: relative;
+    aspect-ratio: 4/5;
+    overflow: hidden;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-slow);
+}
+
+.card:hover .image {
+    transform: scale(1.05);
+}
+
+.dateBadge {
+    position: absolute;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    background: var(--color-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+.content {
+    padding: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+}
+
+.description {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    line-height: 1.5;
+}

@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import './globals.css';
 
 export const metadata: Metadata = {
+    metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.restaurantpepperoni.lu'),
     title: 'Restaurant PEPPERONI Diekirch | Pizzeria & Cuisine Française, Portugaise, Italienne',
     description: 'Restaurant Pepperoni à Diekirch : cuisine italienne et française, pizzas artisanales, pâtes et plats traditionnels. Sur place, à emporter ou livraison rapide. Réservez votre table dès maintenant !',
     keywords: 'restaurant Diekirch, pizzeria Luxembourg, cuisine italienne, cuisine française, cuisine portugaise, pizza artisanale, pâtes fraîches, livraison restaurant, à emporter Diekirch',

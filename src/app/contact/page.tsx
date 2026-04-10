@@ -73,6 +73,21 @@ export default function ContactPage() {
                             </div>
                         </div>
 
+                        {/* Zones de livraison */}
+                        <div className={styles.mapCard}>
+                            <h3>🛵 Zones de livraison</h3>
+                            <p style={{ marginBottom: '1rem', color: 'var(--color-text-secondary)', lineHeight: '1.6' }}>
+                                Nous livrons à Diekirch et ses environs. Consultez la carte ci-dessous pour vérifier si votre adresse se trouve dans notre zone de livraison.
+                            </p>
+                            <div className={styles.mapContainer}>
+                                <img
+                                    src="/delivery-zones.png"
+                                    alt="Carte des zones de livraison"
+                                    style={{ width: '100%', height: 'auto', display: 'block' }}
+                                />
+                            </div>
+                        </div>
+
                         {/* Carte Google Maps */}
                         <div className={styles.mapCard}>
                             <h3>📍 Où nous trouver</h3>
